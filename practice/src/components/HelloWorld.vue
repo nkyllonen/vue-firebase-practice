@@ -4,6 +4,9 @@
   <article v-for="(location, idx) in locations" :key="idx">
     <img :src="location.image">
     <h2>{{ location.name }}</h2>
+    <button @click="deleteLocation(location.id)">
+      Delete
+    </button>
   </article>
 
   <form @submit="addLocation(name, image)">
@@ -40,6 +43,9 @@ export default {
     addLocation (name, image) {
       const createdAt = new Date()
       db.collection('locations').add({ name, image, createdAt })
+    },
+    deleteLocation (id) {
+      db.collection('locations').doc(id).delete()
     }
   }
 }
